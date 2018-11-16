@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
 }
 
 const val APPLY_DESCRIPTION =
-    "cherry-picks commit to the current branch with auto-creating bunch files with given suffix."
+    "Apply commit to the current branch selecting specific changes for desired bunch (un-bunch commit)."
 
 const val AP_SINCE = "since-ref"
 const val AP_UNTIL = "until-ref"
@@ -68,7 +68,7 @@ fun apply(args: Array<String>) {
                 .filter { it.newPath?.pathExtension() == suffix }
                 .map {
                     val modifiedChangeType =
-                        if (it.changeType != DiffEntry.ChangeType.DELETE && it.content.trim() == "") {
+                        if (it.changeType != DiffEntry.ChangeType.DELETE && it.content.trim().isEmpty()) {
                             DiffEntry.ChangeType.DELETE
                         } else {
                             it.changeType
